@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Library</title>
+    <link href="/styles/main.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Quintessential&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="title-container">
+        <div class="rose-left-container">
+            <img class="rose" id="left" src="/images/Rose1.png" alt="roses"> 
+            <a class="link-button" id="back-library" href="/">Back</a>
+        </div>
+        <div class="sort-container">
+            <label for="sort">Sort By: </label>
+            <select id="sort" name="selectedOption">
+                <option value="option1">Title</option>
+                <option value="option2">Date</option>
+                <option value="option3">Rating</option>
+            </select>
+            <div class="book-display-container">
+                <a href="/book" class="book-display-link">
+                    <div class="book-display">
+                        <div class="book-display-description">
+                            <h2 class="quintessential-regular" id="book-title">Book Title</h2>
+                            <p class="quintessential-regular" id="paragraph">ISBN: </p>
+                            <p class="quintessential-regular" id="paragraph">Date Completed: </p>
+                            <p class="quintessential-regular" id="paragraph">Rating: </p>
+
+                        </div>
+                        <div class="book-display-image"></div>
+                    </div>
+                </a>
+            </div>
+        </div>
+        <div class="rose-right-container">
+            <img class="rose" id="right" src="/images/Rose2.png" alt="roses"> 
+        </div>
+        </div>
+
+    </div>
+</body>
+</html>

@@ -16,31 +16,83 @@
         <div class="rose-left-container">
             <img class="rose" id="left" src="/images/Rose1.png" alt="roses"> 
         </div>
-        <form class="new-entry-form">
+        <form class="new-entry-form" action="/post" method="POST">
             <div class="book-container">
                 <div class="book-container-page">  
                     <h2 class="quintessential-regular">Book Name: </h2>
                     <input type="text" class="small-input">
                     <h2 class="quintessential-regular">ISBN: </h2>
                     <input type="text" class="small-input">
-                    <h2 class="quintessential-regular">Rating: </p>
-                    <span class="fa fa-star checked" id="star-1"></span>
-                    <span class="fa fa-star checked" id="star-2"></span>
-                    <span class="fa fa-star checked" id="star-3"></span>
-                    <span class="fa fa-star" id="star-4"></span>
-                    <span class="fa fa-star" id="star-5"></span>
+                    <h2 class="quintessential-regular">Rating: </h2>
+                    <input type="hidden" name="rating" id="ratingInput" value="">
+                    <span class="fa fa-star" id="1" value="1"></span>
+                    <span class="fa fa-star" id="2" value="2"></span>
+                    <span class="fa fa-star" id="3" value="3"></span>
+                    <span class="fa fa-star" id="4" value="4"></span>
+                    <span class="fa fa-star" id="5" value="5"></span>
+                    <script>
+                         function addClass(star) {
+                            star.classList.add("checked");
+                        }
+                        function removeClass(star) {
+                            star.classList.remove("checked");
+                        }
+
+                        let starId = null;
+                        let selected = false;
+
+                        for (let i=1; i < 6; i++) {
+                            let star = document.getElementById(`${i}`);
+                            star.addEventListener("mouseover", function (event){
+                                if (selected == true) return;
+                                starId = Number(event.target.id);
+                                for (let i=1; i <= starId; i++){
+                                    let starIdString = `${i}`;
+                                    star = document.getElementById(starIdString);
+                                    addClass(star);
+                                }
+                            });
+                            star.addEventListener("mouseout", function (event){
+                                if (selected == true) return;
+                                for (let i=1; i < 6; i++) {
+                                    star = document.getElementById(`${i}`);
+                                    removeClass(star);
+                                }
+
+                            });
+                            star.addEventListener("click", function (event) {
+                                starId = Number(event.target.id);
+                                document.getElementById("ratingInput").value = starId;
+                                selected = true;
+                                for (let i=1; i <= starId; i++){
+                                    let starIdString = `${i}`;
+                                    star = document.getElementById(starIdString);
+                                    addClass(star);
+
+                                    for (let j=starId+1; j<6; j++) {
+                                        let removeStarIdString = `${j}`;
+                                        star = document.getElementById(removeStarIdString);
+                                        removeClass(star);
+                                    }
+                                }
+                                selected = true;
+                                
+                            });
+
+                        }      
+                    </script>
                     <h2 class="quintessential-regular">Date Completed: </h2>
                     <input type="date">
                 </div>
-                <div class="book-container-page">
+                <div class="book-container-page" id="notes-page">
                     <h2 class="quintessential-regular">Important Notes </h2>
                     <textarea class="large-input"></textarea>
                 </div>
             </div>
             <div class="buttons-row">
-                <a class="link-button a" href="/">Back</a>
-                <button type="submit" id="submit">Submit</button>
-            </div>
+                    <a class="link-button a" href="/">Back</a>
+                    <button type="submit" id="submit">Submit</button>
+                </div>
         </form>
         <div class="rose-right-container">
             <img class="rose" id="right" src="/images/Rose2.png" alt="roses"> 

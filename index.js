@@ -18,6 +18,14 @@ app.get("/new", (req,res)=>{
     res.render("entry.ejs");
 });
 
+app.get("/library", (req,res)=>{
+    res.render("library.ejs");
+});
+
+app.get("/book", (req,res) =>{
+    res.render("entry.ejs")
+})
+
 
 
 app.listen(port, ()=>{

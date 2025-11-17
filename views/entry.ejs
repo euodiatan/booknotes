@@ -18,18 +18,24 @@
         </div>
         <form class="new-entry-form" action="/post" method="POST">
             <div class="book-container">
-                <div class="book-container-page">  
-                    <h2 class="quintessential-regular">Book Name: </h2>
-                    <input type="text" class="small-input">
-                    <h2 class="quintessential-regular">ISBN: </h2>
-                    <input type="text" class="small-input">
-                    <h2 class="quintessential-regular">Rating: </h2>
-                    <input type="hidden" name="rating" id="ratingInput" value="">
-                    <span class="fa fa-star" id="1" value="1"></span>
-                    <span class="fa fa-star" id="2" value="2"></span>
-                    <span class="fa fa-star" id="3" value="3"></span>
-                    <span class="fa fa-star" id="4" value="4"></span>
-                    <span class="fa fa-star" id="5" value="5"></span>
+                <div class="book-container-page-grid">  
+                    <div class="input-container" id="bookname-div">
+                        <h2 class="quintessential-regular">Book Name: </h2>
+                        <input type="text" class="small-input">
+                    </div>
+                    <div class="input-container" id="ISBN-div">
+                        <h2 class="quintessential-regular">ISBN: </h2>
+                        <input type="text" class="small-input">
+                    </div>
+                    <div class="input-container" id="rating-div">
+                        <h2 class="quintessential-regular">Rating: </h2>
+                        <input type="hidden" name="rating" id="ratingInput" value="">
+                        <span class="fa fa-star" id="1" value="1"></span>
+                        <span class="fa fa-star" id="2" value="2"></span>
+                        <span class="fa fa-star" id="3" value="3"></span>
+                        <span class="fa fa-star" id="4" value="4"></span>
+                        <span class="fa fa-star" id="5" value="5"></span>
+                    </div>
                     <script>
                          function addClass(star) {
                             star.classList.add("checked");
@@ -81,11 +87,16 @@
 
                         }      
                     </script>
-                    <h2 class="quintessential-regular">Date Completed: </h2>
-                    <input type="date">
+                    <div class="input-container" id="date-div">
+                        <h2 class="quintessential-regular">Date Completed: </h2>
+                        <input type="date">
+                    </div>
+                     <div class="book-display-image-entry" id="book-image-entry">
+                        <img id ="book-cover" src="https://covers.openlibrary.org/b/isbn/9780385533225-M.jpg" />
+                    </div>
                 </div>
-                <div class="book-container-page" id="notes-page">
-                    <h2 class="quintessential-regular">Important Notes </h2>
+                <div class="book-container-page">
+                    <h2 class="quintessential-regular" id="notes-header">Important Notes </h2>
                     <textarea class="large-input"></textarea>
                 </div>
             </div>

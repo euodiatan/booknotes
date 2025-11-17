@@ -84,15 +84,46 @@ h1 {
     
 }
 
+.book-container-page-grid{
+    width: 25vw;
+    height: 70vh;
+    border:none;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 0.5fr 0.5fr 0.5fr 1fr;
+}
+
 .book-container-page{
     width: 20vw;
     height: 70vh;
     border:none;
-    padding-left: 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
-#notes-page{
-    text-align: center;
+#notes-header {
+    margin-left: -10%;
+}
+
+#bookname-div {
+    grid-column: 1;
+    grid-row: 1;
+}
+
+#ISBN-div {
+    grid-column: 1;
+    grid-row: 2;
+}
+
+#rating-div {
+    grid-column: 1;
+    grid-row:3
+}
+
+#date-div {
+    grid-column: 1;
+    grid-row: 4;
 }
 
 .new-entry-form {
@@ -114,8 +145,8 @@ h1 {
 .large-input {
     height:80%;
     width: 95%;
-    margin-left: 4%;
     border: 2px solid #f7f3f0;
+    margin-left: -10%;
     resize: none;
 }
 
@@ -245,10 +276,23 @@ select {
 .book-display-image {
     width: 200px;
     height: 200px;
-    margin-right: 5%;
     align-self: center;
-    text-align: center;
+    justify-content: center;
+    align-items: center;
+    display: flex;
 }
+
+.book-display-image-entry {
+    background-color: #d8bfa9;
+    padding: 2%;
+    width: 60%;
+    height: 80%;
+    align-self: center;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+}
+
 .book-display-link {
     display: block;
     text-decoration: none;
@@ -257,3 +301,14 @@ select {
 .fa-star{
     cursor: pointer;
 }
+
+#book-cover {
+    width: auto;
+    height: 180px;
+}
+
+#book-image-entry {
+    grid-column: 2;
+    grid-row: 1 / span 2;
+}
+

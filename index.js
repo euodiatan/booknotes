@@ -12,7 +12,13 @@ app.use(bodyParser.json());
 
 app.get("/", (req,res)=>{
     res.render("index.ejs");
-})
+});
+
+app.get("/new", (req,res)=>{
+    res.render("entry.ejs");
+});
+
+
 
 app.listen(port, ()=>{
     console.log(`Server started successfully at port ${port}.`)

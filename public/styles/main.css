@@ -64,8 +64,102 @@ h1 {
     padding: 5%;
     border-radius: 25px;
     margin: 2.5%;
+    text-decoration: none;
 }
 
 .link-button:hover {
     cursor: pointer;
+}
+
+.book-container {
+    width: 50vw;
+    height: 70vh;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 2px;
+}
+
+.book-container-page{
+    width: 20vw;
+    height: 70vh;
+    border: 4px solid #d8bfa9;
+    border-radius: 25px;
+    padding-left: 15px;
+}
+
+.new-entry-form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.checked {
+  color: orange;
+}
+
+.small-input {
+    height: 4vh;
+    border: 2px solid #f7f3f0;
+    width: 80%;
+}
+
+.large-input {
+    height:80%;
+    width: 90%;
+    border: 2px solid #f7f3f0;
+    resize: none;
+}
+
+.large-input:focus {
+    outline: none;
+}
+
+.small-input:focus {
+    outline: none;
+}
+
+input[type='date'] {
+    border: 2px solid #f7f3f0;
+    height: 4vh;
+}
+
+input[type='date']:hover {
+    cursor: pointer;
+}
+
+.buttons-row {
+    width: 50vw;
+    height: 10vh;
+    align-self: flex-end;
+    display: flex;
+    flex-direction: row;
+    justify-content:end;
+    align-items: center;
+    gap: 1%;
+    padding-right: 10%;
+}
+
+.link-button.a {
+    height: 50%;
+    min-width: 80px;
+    text-align: center;
+    padding: 0;
+    font-size: x-large;
+    margin-right: 0;
+    text-decoration: none;
+}
+
+button {
+    border: none;
+    height: 50%;
+    text-align: center;
+    font-size: x-large;
+    font-family: "Quintessential", serif;
+    font-weight: 200;
+    font-style: normal;
+    background-color: #756764;
+    color: white;
+    border-radius: 25px;
+    padding: 0 2% 2% 2%;
 }

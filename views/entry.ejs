@@ -16,93 +16,184 @@
         <div class="rose-left-container">
             <img class="rose" id="left" src="/images/Rose1.png" alt="roses"> 
         </div>
-        <form class="new-entry-form" action="/post" method="POST">
+        <form class="new-entry-form" <% if (locals.editedBook) { %> action="/edit"<% } else { %> action="/post"<% } %> method="POST">
             <div class="book-container">
                 <div class="book-container-page-grid">  
                     <div class="input-container" id="bookname-div">
                         <h2 class="quintessential-regular">Book Name: </h2>
-                        <input type="text" class="small-input">
+                        <% if (locals.book) {%>
+                            <p class="quintessential-regular"><%=book.name%></p>
+                        <% } else { %>
+                            <input type="text" name="bookname"class="small-input" required <% if (locals.editedBook) { %> value="<%=editedBook.name%>"<% } %>>
+                            <% } %> 
                     </div>
                     <div class="input-container" id="ISBN-div">
-                        <h2 class="quintessential-regular">ISBN: </h2>
-                        <input type="text" class="small-input">
+                        <h2 class="quintessential-regular">ISBN-13: </h2>
+                        <% if (locals.book) {%>
+                            <p class="quintessential-regular"><%=book.isbn%></p>
+                        <% } else { %>
+                            <input type="text" name="bookisbn" class="small-input" required <% if (locals.editedBook) { %> value="<%=editedBook.isbn%>"<% } %>>
+                            <% } %> 
                     </div>
                     <div class="input-container" id="rating-div">
                         <h2 class="quintessential-regular">Rating: </h2>
-                        <input type="hidden" name="rating" id="ratingInput" value="">
-                        <span class="fa fa-star" id="1" value="1"></span>
-                        <span class="fa fa-star" id="2" value="2"></span>
-                        <span class="fa fa-star" id="3" value="3"></span>
-                        <span class="fa fa-star" id="4" value="4"></span>
-                        <span class="fa fa-star" id="5" value="5"></span>
+                        <% if (locals.book) {%>
+                            <% const rating = book.rating; %>
+                            <% for (let i=0; i < rating; i++) {%>
+                                <span class="fa fa-star checked"></span>
+                                <% } %>
+                            <% for (let i=0; i < 5-rating; i++) { %>
+                                <span class="fa fa-star"></span>
+                            <% } %>
+                        <% } else if (locals.editedBook ) { %>
+                            <input type="hidden" name="bookrating" id="ratingInput" value="<%=editedBook.rating%>">
+                            <% for (i=1; i < editedBook.rating+1; i++) { %>
+                                <span class="fa fa-star checked" id="<%=i%>" value="<%=i%>"></span>
+                            <% } %>
+                            <% for (i=editedBook.rating+1; i < 6; i++) { %>
+                                <span class="fa fa-star" id="<%=i%>" value="<%=i%>"></span>
+                            <% } %>
+                        <% } else { %>
+                             <input type="hidden" name="bookrating" id="ratingInput" value="0">
+                            <% for (i=1; i < 6; i++) { %>
+                                <span class="fa fa-star" id="<%=i%>" value="<%=i%>"></span>
+                            <% } %>
+                        <% } %>
+                        
                     </div>
-                    <script>
-                         function addClass(star) {
-                            star.classList.add("checked");
-                        }
-                        function removeClass(star) {
-                            star.classList.remove("checked");
-                        }
+                    <% if (!locals.book && !locals.editedBook) { %>
+                        <script>
+                            function addClass(star) {
+                                star.classList.add("checked");
+                            }
+                            function removeClass(star) {
+                                star.classList.remove("checked");
+                            }
 
-                        let starId = null;
-                        let selected = false;
+                            let starId = null;
+                            let selected = false;
 
-                        for (let i=1; i < 6; i++) {
-                            let star = document.getElementById(`${i}`);
-                            star.addEventListener("mouseover", function (event){
-                                if (selected == true) return;
-                                starId = Number(event.target.id);
-                                for (let i=1; i <= starId; i++){
-                                    let starIdString = `${i}`;
-                                    star = document.getElementById(starIdString);
-                                    addClass(star);
-                                }
-                            });
-                            star.addEventListener("mouseout", function (event){
-                                if (selected == true) return;
-                                for (let i=1; i < 6; i++) {
-                                    star = document.getElementById(`${i}`);
-                                    removeClass(star);
-                                }
-
-                            });
-                            star.addEventListener("click", function (event) {
-                                starId = Number(event.target.id);
-                                document.getElementById("ratingInput").value = starId;
-                                selected = true;
-                                for (let i=1; i <= starId; i++){
-                                    let starIdString = `${i}`;
-                                    star = document.getElementById(starIdString);
-                                    addClass(star);
-
-                                    for (let j=starId+1; j<6; j++) {
-                                        let removeStarIdString = `${j}`;
-                                        star = document.getElementById(removeStarIdString);
+                            for (let i=1; i < 6; i++) {
+                                let star = document.getElementById(`${i}`);
+                                star.addEventListener("mouseover", function (event){
+                                    if (selected == true) return;
+                                    starId = Number(event.target.id);
+                                    for (let i=1; i <= starId; i++){
+                                        let starIdString = `${i}`;
+                                        star = document.getElementById(starIdString);
+                                        addClass(star);
+                                    }
+                                });
+                                star.addEventListener("mouseout", function (event){
+                                    if (selected == true) return;
+                                    for (let i=1; i < 6; i++) {
+                                        star = document.getElementById(`${i}`);
                                         removeClass(star);
                                     }
-                                }
-                                selected = true;
-                                
-                            });
 
-                        }      
-                    </script>
+                                });
+                                star.addEventListener("click", function (event) {
+                                    starId = Number(event.target.id);
+                                    document.getElementById("ratingInput").value = starId;
+                                    selected = true;
+                                    for (let i=1; i <= starId; i++){
+                                        let starIdString = `${i}`;
+                                        star = document.getElementById(starIdString);
+                                        addClass(star);
+
+                                        for (let j=starId+1; j<6; j++) {
+                                            let removeStarIdString = `${j}`;
+                                            star = document.getElementById(removeStarIdString);
+                                            removeClass(star);
+                                        }
+                                    }
+                                    selected = true;
+                                    
+                                });
+
+                            }      
+                        </script>
+                    <% } %>
+                    <% if (locals.editedBook) { %>
+                        <script>
+                            function addClass(star) {
+                                star.classList.add("checked");
+                            }
+                            function removeClass(star) {
+                                star.classList.remove("checked");
+                            }
+
+                            let starId = null;
+                            let selected = false;
+
+                            for (let i=1; i < 6; i++) {
+                                let star = document.getElementById(`${i}`);
+                                star.addEventListener("click", function (event) {
+                                    starId = Number(event.target.id);
+                                    document.getElementById("ratingInput").value = starId;
+                                    selected = true;
+                                    for (let i=1; i <= starId; i++){
+                                        let starIdString = `${i}`;
+                                        star = document.getElementById(starIdString);
+                                        addClass(star);
+
+                                        for (let j=starId+1; j<6; j++) {
+                                            let removeStarIdString = `${j}`;
+                                            star = document.getElementById(removeStarIdString);
+                                            removeClass(star);
+                                        }
+                                    }
+                                    selected = true;
+                                    
+                                });
+
+                            }      
+                        </script>
+                    <% }%>
                     <div class="input-container" id="date-div">
                         <h2 class="quintessential-regular">Date Completed: </h2>
-                        <input type="date">
+                        <% if (locals.book) {%>
+                            <p class="quintessential-regular"><%=book.completed_date.toISOString().slice(0, 10);%></p>
+                        <% } else { %>
+                            <% let formattedDate = ""; %>
+                            <% if (locals.editedBook) {%>
+                                <% const isoDate = editedBook.completed_date%>
+                                <% const dateObj = new Date(isoDate); %>
+                                <% const formattedDate = dateObj.toISOString().slice(0, 10); %>
+                               <input type="date" name="bookdate"class="small-input" required value=<%=formattedDate%>>
+                            <% } else { %>
+                                <input type="date" name="bookdate"class="small-input" required>
+                                <% } %>
+
+                            
+                            
+                            <% } %> 
                     </div>
-                     <div class="book-display-image-entry" id="book-image-entry">
-                        <img id ="book-cover" src="https://covers.openlibrary.org/b/isbn/9780385533225-M.jpg" />
-                    </div>
+                    <% if (locals.book) {%>
+                            <div class="book-display-image-entry" id="book-image-entry">
+                                <img id ="book-cover" src="https://covers.openlibrary.org/b/isbn/<%=book.isbn%>-M.jpg" />
+                            </div>
+                    <% } %>
                 </div>
                 <div class="book-container-page">
                     <h2 class="quintessential-regular" id="notes-header">Important Notes </h2>
-                    <textarea class="large-input"></textarea>
+                    <% if (locals.book) {%>
+                            <p class="quintessential-regular"><%=book.notes%></p>
+                        <% } else { %>
+                            <textarea id="input" name="booknotes" class="large-input" ><% if (locals.editedBook) { %> <%=editedBook.notes%> <% } %></textarea>
+                            <% } %> 
+                    
                 </div>
             </div>
+            <% if (locals.editedBook) { %>
+                <input type="hidden" name="bookid" value="<%=editedBook.id%>">
+            <% } %>
             <div class="buttons-row">
-                    <a class="link-button a" href="/">Back</a>
-                    <button type="submit" id="submit">Submit</button>
+                    <a class="link-button a" <% if (locals.book) { %> href="/library" <% } else if (locals.editedBook) { %> href="/book?id=<%=editedBook.id%>" <%} else { %> href="/" <% } %> >Back</a>
+                    <% if (locals.editedBook) { %>
+                        <a class="link-button a" href="/delete?id=<%=editedBook.id%>">Delete</a>
+                     <% } %>
+                    <% if (locals.book) { %> <a class="link-button a" href="/edit?id=<%=book.id%>">Edit</a> <% } else { %> <button type="submit" id="submit">Submit</button> <%} %>
                 </div>
         </form>
         <div class="rose-right-container">

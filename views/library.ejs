@@ -8,6 +8,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Quintessential&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body>
     <div class="title-container">
@@ -16,27 +17,47 @@
             <a class="link-button" id="back-library" href="/">Back</a>
         </div>
         <div class="sort-container">
-            <label for="sort">Sort By: </label>
-            <select id="sort" name="selectedOption">
-                <option value="option1">Title</option>
-                <option value="option2">Date</option>
-                <option value="option3">Rating</option>
-            </select>
+            <form id="sort-form" method="POST" action="/sort">
+                <label for="sort">Sort By: </label>
+                <select id="sort" name="selectedSort">
+                    <option value="Title" <% if (locals.sort == "Title") { %> selected = "true" <% } %>>Title</option>
+                    <option value="Date" <% if (locals.sort == "Date") { %> selected = "true" <% } %>>Date</option>
+                    <option value="Rating" <% if (locals.sort == "Rating") { %> selected = "true" <% } %>>Rating</option>
+                </select>
+            </form>
+            <script>
+                document.getElementById("sort").onchange = function() {
+                    document.getElementById("sort-form").submit();
+                }
+            </script>
             <div class="book-display-container">
-                <a href="/book" class="book-display-link">
-                    <div class="book-display">
-                        <div class="book-display-description">
-                            <h2 class="quintessential-regular" id="book-title">Book Title</h2>
-                            <p class="quintessential-regular" id="paragraph">ISBN: </p>
-                            <p class="quintessential-regular" id="paragraph">Date Completed: </p>
-                            <p class="quintessential-regular" id="paragraph">Rating: </p>
-
+                <% if (locals.library) { %>
+                    <% library.forEach (book => { %>
+                        <a href="/book?id=<%=book.id%>" class="book-display-link">
+                        <div class="book-display">
+                            <div class="book-display-description">
+                                <h2 class="quintessential-regular" id="book-title"><%= book.name %></h2>
+                                <p class="quintessential-regular" id="paragraph">ISBN: <%= book.isbn %></p>
+                                <p class="quintessential-regular" id="paragraph">Date Completed: <%= book.completed_date.toISOString().slice(0, 10); %></p>
+                                <% let rating = book.rating %>
+                                <p class="quintessential-regular" id="paragraph">Rating: <% for (let i=0; i < rating; i++) { %>
+                                    <span class="fa fa-star checked"></span>
+                                <% } %>
+                            <% for (let i=0; i < 5-rating; i++) { %>
+                                <span class="fa fa-star"></span>
+                            <% } %>
+                            </p>
+                            </div>
+                            <div class="book-display-image">
+                                <img id ="book-cover" src="https://covers.openlibrary.org/b/isbn/<%= book.isbn %>-M.jpg" />
+                            </div>
                         </div>
-                        <div class="book-display-image">
-                            <img id ="book-cover" src="https://covers.openlibrary.org/b/isbn/9780385533225-M.jpg" />
-                        </div>
-                    </div>
-                </a>
+                    </a>
+                <% }) %>
+                <%  } else { %>
+                    <p>You have no books to display.</p>
+                <% } %>
+                
             </div>
         </div>
         <div class="rose-right-container">

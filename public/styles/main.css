@@ -140,6 +140,7 @@ h1 {
     height: 4vh;
     border: 2px solid #f7f3f0;
     width: 80%;
+    background-color: #f6eeeb;
 }
 
 .large-input {
@@ -148,6 +149,7 @@ h1 {
     border: 2px solid #f7f3f0;
     margin-left: -10%;
     resize: none;
+    background-color: #f6eeeb;
 }
 
 .large-input:focus {
@@ -161,6 +163,7 @@ h1 {
 input[type='date'] {
     border: 2px solid #f7f3f0;
     height: 4vh;
+    background-color: #f6eeeb;
 }
 
 input[type='date']:hover {
@@ -186,6 +189,7 @@ input[type='date']:hover {
     padding: 0;
     font-size: x-large;
     margin-right: 0;
+    margin-left: 0;
     text-decoration: none;
 }
 
@@ -283,7 +287,7 @@ select {
 }
 
 .book-display-image-entry {
-    background-color: #d8bfa9;
+    background-color: #FFFFFF;
     padding: 2%;
     width: 60%;
     height: 80%;

@@ -78,7 +78,7 @@ h1 {
     flex-direction: row;
     justify-content: center;
     gap: 2px;
-    background-image: URL("/images/book.png");
+    background-image: URL("/images/Book.png");
     background-repeat: no-repeat;
     background-size: cover;
     

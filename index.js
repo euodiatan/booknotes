@@ -1,24 +1,18 @@
 import express from "express";
 import bodyParser from "body-parser";
 import axios from "axios";
-import { Client } from "pg";
+import pg from "pg";
 import env from "dotenv";
 
 const app = express();
 const port = 3000;
 env.config();
 const API_URL = "https://covers.openlibrary.org/b/";
-const connectionOptions = process.env.DATABASE_URL
-  ? { connectionString: process.env.DATABASE_URL, ssl: { rejectUnauthorized: false } }
-  : { 
-      user: process.env.PG_USER,
-      host: process.env.PG_HOST,
-      database: process.env.PG_DATABASE,
-      password: process.env.PG_PASSWORD,
-      port: process.env.PG_PORT
-    };
 
-const db = new Client(connectionOptions);
+const db = new pg.Client({
+  connectionString: process.env.DATABASE_URL,
+  ssl: { rejectUnauthorized: false }
+});
 
 
 db.connect();

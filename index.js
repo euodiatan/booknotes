@@ -1,7 +1,7 @@
 import express from "express";
 import bodyParser from "body-parser";
 import axios from "axios";
-import pg from "pg";
+import { pg, Client } from "pg";
 import env from "dotenv";
 
 const app = express();
